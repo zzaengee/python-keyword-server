@@ -30,6 +30,7 @@ def extract_keywords_api():
 
     # ✅ 불용어 로딩
     stopwords = load_stopwords()
+    emotion_words = load_emotion_words()
 
     # ✅ 전체 리뷰에서 키워드 추출
     all_keywords = []
