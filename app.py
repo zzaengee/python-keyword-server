@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import pandas as pd
 import os
-from wordcloud_util import get_top_keywords, extract_keywords, load_stopwords  # ✅ 함수들 임포트
+from wordcloud_util import get_top_keywords, extract_keywords, load_stopwords, load_emotion_words # ✅ 함수들 임포트
 
 app = Flask(__name__)
 
