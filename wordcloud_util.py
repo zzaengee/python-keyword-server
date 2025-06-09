@@ -1,6 +1,6 @@
 import os
 from collections import Counter
-from mecab import MeCab
+import MeCab  # mecab-python3 기반
 
 def load_stopwords():
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -9,8 +9,8 @@ def load_stopwords():
         return set(f.read().splitlines())
 
 def extract_keywords(text, stopwords):
-    mecab = MeCab()
-    words = mecab.nouns(text)
+    tagger = MeCab.Tagger("-Owakati")  # 단어 단위로만 자르기 (POS 없이)
+    words = tagger.parse(text).strip().split()
     keywords = [word for word in words if word not in stopwords and len(word) > 1]
     return keywords
 
