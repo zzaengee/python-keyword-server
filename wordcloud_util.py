@@ -1,19 +1,17 @@
 import os
 from collections import Counter
-from konlpy.tag import Okt
-
+from mecab import MeCab
 
 def load_stopwords():
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    stopword_path = os.path.join(current_dir, "data", "stopwords.txt")  # ✅ 경로 수정
+    stopword_path = os.path.join(current_dir, "data", "stopwords.txt")
     with open(stopword_path, 'r', encoding='utf-8') as f:
         return set(f.read().splitlines())
 
-
 def extract_keywords(text, stopwords):
-    okt = Okt()
-    words = okt.pos(text)  # 품사 태깅
-    keywords = [w for w, t in words if t in ['Noun', 'Adjective'] and w not in stopwords and len(w) > 1]
+    mecab = MeCab()
+    words = mecab.nouns(text)
+    keywords = [word for word in words if word not in stopwords and len(word) > 1]
     return keywords
 
 def get_top_keywords(reviews, top_n=20):
